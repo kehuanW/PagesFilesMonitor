@@ -42,6 +42,7 @@ cat > "$BUNDLE/Contents/Info.plist" <<'PLIST'
     <key>LSMinimumSystemVersion</key>   <string>13.0</string>
     <key>NSPrincipalClass</key>         <string>NSApplication</string>
     <key>NSHighResolutionCapable</key>  <true/>
+    <key>CFBundleIconFile</key>         <string>AppIcon</string>
     <key>NSHumanReadableCopyright</key> <string></string>
 </dict>
 </plist>
@@ -50,6 +51,24 @@ PLIST
 # 4. Copy shell script into bundle resources
 cp "$SCRIPT_DIR/pages_to_docx_watcher.sh" "$RESOURCES_DIR/"
 chmod +x "$RESOURCES_DIR/pages_to_docx_watcher.sh"
+
+# 5. Build app icon from icon.png
+ICON_SRC="$SCRIPT_DIR/icon.png"
+if [ -f "$ICON_SRC" ]; then
+    ICONSET="$SCRIPT_DIR/AppIcon.iconset"
+    rm -rf "$ICONSET"
+    mkdir "$ICONSET"
+    for size in 16 32 128 256 512; do
+        sips -z $size $size "$ICON_SRC" --out "$ICONSET/icon_${size}x${size}.png"        > /dev/null
+        double=$(( size * 2 ))
+        sips -z $double $double "$ICON_SRC" --out "$ICONSET/icon_${size}x${size}@2x.png" > /dev/null
+    done
+    iconutil -c icns "$ICONSET" -o "$RESOURCES_DIR/AppIcon.icns"
+    rm -rf "$ICONSET"
+    echo "    App icon generated."
+else
+    echo "    Warning: icon.png not found, skipping icon."
+fi
 
 echo "    Resources copied."
 echo ""
