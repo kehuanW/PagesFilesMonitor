@@ -91,14 +91,16 @@ class MainWindowController: NSWindowController {
         logView.isEditable = false
         logView.isSelectable = true
         logView.font = NSFont.monospacedSystemFont(ofSize: 11, weight: .regular)
-        logView.textColor = .labelColor
+        logView.textColor = NSColor(white: 0.85, alpha: 1.0)
         logView.backgroundColor = NSColor(white: 0.08, alpha: 1.0)
         logView.textContainerInset = NSSize(width: 4, height: 4)
         logView.string = "Waiting to start...\n"
         logView.minSize = NSSize(width: 0, height: 162)
         logView.maxSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         logView.isVerticallyResizable = true
+        logView.isHorizontallyResizable = false
         logView.textContainer?.widthTracksTextView = true
+        logView.textContainer?.containerSize = NSSize(width: 468, height: CGFloat.greatestFiniteMagnitude)
 
         scrollView.documentView = logView
         content.addSubview(scrollView)
@@ -181,7 +183,7 @@ class MainWindowController: NSWindowController {
         let storage = logView.textStorage!
         let attrs: [NSAttributedString.Key: Any] = [
             .font: NSFont.monospacedSystemFont(ofSize: 11, weight: .regular),
-            .foregroundColor: NSColor.labelColor
+            .foregroundColor: NSColor(white: 0.85, alpha: 1.0)
         ]
         storage.append(NSAttributedString(string: text, attributes: attrs))
         logView.scrollToEndOfDocument(nil)
