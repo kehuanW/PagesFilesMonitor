@@ -54,7 +54,7 @@ class MainWindowController: NSWindowController {
 
         // --- Start button ---
         startButton.frame = NSRect(x: 16, y: 214, width: 160, height: 32)
-        startButton.title = "Start Monitoring"
+        startButton.title = "Start"
         startButton.bezelStyle = .rounded
         startButton.isEnabled = false
         startButton.target = self
@@ -62,7 +62,7 @@ class MainWindowController: NSWindowController {
         content.addSubview(startButton)
 
         // --- Stop button ---
-        stopButton.frame = NSRect(x: 184, y: 214, width: 80, height: 32)
+        stopButton.frame = NSRect(x: 184, y: 214, width: 160, height: 32)
         stopButton.title = "Stop"
         stopButton.bezelStyle = .rounded
         stopButton.isEnabled = false
